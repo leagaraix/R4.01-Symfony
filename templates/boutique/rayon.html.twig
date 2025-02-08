@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{# TODO : ajouter automatiquement le nom du rayon selon la categorie à laquelle on accède
+    -- > quand on appelle la vue, il faut lui donner le paramètre categories, et on recupèrera son nom #}
+{% block title %}Rayon {% endblock %}
+
+{% block body %}
+
+    <div class="card col-md-12">
+        <div class="card-header">
+            <a class="btn-back text-secondary" href="/info/R401/fr/boutique/">
+                <i class="fas fa-2x fa-arrow-circle-left"></i>
+            </a>
+            <h3>
+                <i class="fas fa-store"></i>
+                Rayon <b>Fruits</b>
+                <span class="badge badge-pill badge-info">03</span>
+                produit(s) disponible(s)
+            </h3>
+        </div>
+        <div class="card-body row">
+            <div class="col-md-4">
+                <div class="card clickable" onclick="location = '/info/R401/fr/panier/ajouter/1'"
+                     data-toggle="tooltip" title="Ajouter <b>Pomme</b> à mon panier" data-placement="bottom" data-html="true" data-container="body">
+                    <img src="/info/R401/images/produits/pommes.jpg " class="card-img-produit" alt="Pomme">
+                    <div class="card-body">
+                        <h4 class="card-title">Pomme</h4>
+                        <p class="card-text">
+                            <i>Elle est bonne pour la tienne</i>
+                        </p>
+                        <h2>
+				<span class="badge badge-primary">
+					<i class="fas fa-cart-plus"></i>&nbsp;&nbsp;
+					3,42 €
+				</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card clickable" onclick="location = '/info/R401/fr/panier/ajouter/2'"
+                     data-toggle="tooltip" title="Ajouter <b>Poire</b> à mon panier" data-placement="bottom" data-html="true" data-container="body">
+                    <img src="/info/R401/images/produits/poires.jpg " class="card-img-produit" alt="Poire">
+                    <div class="card-body">
+                        <h4 class="card-title">Poire</h4>
+                        <p class="card-text">
+                            <i>Ici tu n&#039;en es pas une</i>
+                        </p>
+                        <h2>
+				<span class="badge badge-primary">
+					<i class="fas fa-cart-plus"></i>&nbsp;&nbsp;
+					2,11 €
+				</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card clickable" onclick="location = '/info/R401/fr/panier/ajouter/3'"
+                     data-toggle="tooltip" title="Ajouter <b>Pêche</b> à mon panier" data-placement="bottom" data-html="true" data-container="body">
+                    <img src="/info/R401/images/produits/peche.jpg " class="card-img-produit" alt="Pêche">
+                    <div class="card-body">
+                        <h4 class="card-title">Pêche</h4>
+                        <p class="card-text">
+                            <i>Elle va te la donner</i>
+                        </p>
+                        <h2>
+				<span class="badge badge-primary">
+					<i class="fas fa-cart-plus"></i>&nbsp;&nbsp;
+					2,84 €
+				</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
