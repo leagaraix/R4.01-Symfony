@@ -5,7 +5,7 @@
 {% block body %}
     <div class="card col-md-12">
         <div class="card-header">
-            <a class="btn-back text-secondary" href="/info/R401/">
+            <a class="btn-back text-secondary" href="{{ path("app_default_index") }}">
                 <i class="fas fa-2x fa-arrow-circle-left"></i>
             </a>
             <h3>
@@ -17,7 +17,7 @@
         </div>
         <div class="card-body row">
             <div class="col-md-3">
-                <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : 1}) }}'">
+                <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : 1 }) }}'">
                     <img src="{{ asset("images/categories/fruits.jpg") }}" class="card-img-top" alt="Fruits">
                     <div class="card-body">
                         <h4 class="card-title">Fruits</h4>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card clickable" onclick="location = '/info/R401/fr/boutique/rayon/2'">
+                <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : 2 }) }}'">
                     <img src="{{ asset("images/categories/legumes.jpg") }}" class="card-img-top" alt="Légumes">
                     <div class="card-body">
                         <h4 class="card-title">Légumes</h4>
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card clickable" onclick="location = '/info/R401/fr/boutique/rayon/3'">
+                <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : 3 }) }}'">
                     <img src="{{ asset("images/categories/junk_food.jpg") }}" class="card-img-top" alt="Junk Food">
                     <div class="card-body">
                         <h4 class="card-title">Junk Food</h4>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card clickable" onclick="location = '/info/R401/fr/boutique/rayon/4'">
+                <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : 4 }) }}'">
                     <img src="{{ asset("images/categories/corona.jpg") }}" class="card-img-top" alt="Virus">
                     <div class="card-body">
                         <h4 class="card-title">Virus</h4>

@@ -28,12 +28,13 @@ final class BoutiqueController extends AbstractController
     public function rayon(int $idCategorie, BoutiqueService $boutique): Response
     {
         $categorie = $boutique->findCategorieById($idCategorie);
-        // J'EN SUIS ICI, JE CHERCHE A DONNER LE NOM DE LA CATEGORIE A LA VUE
-        // ET A RECUPERER LA LISTE DES PRODUITS, QUE JE DOIS AUSSI ENVOYER
-        $produits = $categorie->find;
+        var_dump($categorie);
+        $produits = $boutique->findProduitsByCategorie($idCategorie);
+        var_dump($produits);
+
         return $this->render('boutique/rayon.html.twig', [
-            'produits' => $produits
-            'categorie' => $idCategorie
+            'produits' => $produits,
+            'categorie' => $categorie
         ]);
     }
 

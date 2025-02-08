@@ -39,7 +39,7 @@ class BoutiqueService
         return (sizeof($res) === 1) ? $res[array_key_first($res)] : null;
     }
 
-    // renvoie untableau de produits dont idCategorie == $idCategorie
+    // renvoie un tableau de produits dont idCategorie == $idCategorie
     public function findProduitsByCategorie(int $idCategorie): array
     {
         return array_filter(
