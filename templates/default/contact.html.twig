@@ -2,7 +2,7 @@
 
 {# Titre #}
 {% block title %}
-    Garder le contact
+    {% trans %} default.contact.title {% endtrans %}
 {% endblock %}
 
 {# Body #}
@@ -14,7 +14,8 @@
             </a>
             <h3>
                 <i class="fas fa-comments"></i>
-                Garder le contact			</h3>
+                {% trans %} default.contact.contact {% endtrans %}
+            </h3>
         </div>
         <div class="card-body">
             <div class="card clickable" onclick="window.open('https://iut2.univ-grenoble-alpes.fr/l-iut2/qui-sommes-nous-/les-departements-de-l-iut2/informatique-info--149104.kjsp','_blank')">

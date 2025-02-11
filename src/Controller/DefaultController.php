@@ -11,8 +11,10 @@ class DefaultController extends AbstractController
 {
     // Page d'accueil
     #[Route(
-        path: '/',
+        path: '/{_locale}',
         name: 'app_default_index',
+        requirements: ['_locale' => '%app.supported_locales%'],
+        defaults: ['_locale' => 'fr'],
     )]
     public function index(): Response
     {
@@ -21,8 +23,9 @@ class DefaultController extends AbstractController
 
     // Page de contact
     #[Route(
-        path: '/contact',
+        path: '/{_locale}/contact',
         name: 'app_default_contact',
+        requirements: ['_locale' => '%app.supported_locales%'],
     )]
     public function contact(): Response
     {

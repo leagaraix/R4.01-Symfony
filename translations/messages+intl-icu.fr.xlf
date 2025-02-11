@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="UdJs5Dr" resname="boutique.index.title">
+        <source>boutique.index.title</source>
+        <target>Nos rayons</target>
+      </trans-unit>
+      <trans-unit id="knaMLz5" resname="navbar.accueil">
+        <source>navbar.accueil</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id="kuhtb5p" resname="navbar.boutique">
+        <source>navbar.boutique</source>
+        <target>Boutique</target>
+      </trans-unit>
+      <trans-unit id="nCSBDIb" resname="navbar.contact">
+        <source>navbar.contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="0Wt4__T" resname="default.index.title">
+        <source>default.index.title</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id="txgvtKx" resname="default.index.boutique">
+        <source>default.index.boutique</source>
+        <target>Boutique R4.01</target>
+      </trans-unit>
+      <trans-unit id="vrqgsv5" resname="default.index.slogan">
+        <source>default.index.slogan</source>
+        <target>Ici, rien à vendre, c'est juste pour apprendre...</target>
+      </trans-unit>
+      <trans-unit id="3RT8NiP" resname="default.contact.title">
+        <source>default.contact.title</source>
+        <target>Garder le contact</target>
+      </trans-unit>
+      <trans-unit id="G.fuZNa" resname="default.contact.contact">
+        <source>default.contact.contact</source>
+        <target>Garder le contact</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

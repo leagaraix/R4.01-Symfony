@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nos rayons{% endblock %}
+{% block title %}{% trans %} boutique.index.title {% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="card col-md-12">
@@ -15,51 +15,26 @@
                 rayon(s) proposé(s)
             </h3>
         </div>
+
+        {# Affichage de toutes les catégories (= les rayons) #}
         <div class="card-body row">
-            <div class="col-md-3">
-                <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : 1 }) }}'">
-                    <img src="{{ asset("images/categories/fruits.jpg") }}" class="card-img-top" alt="Fruits">
-                    <div class="card-body">
-                        <h4 class="card-title">Fruits</h4>
-                        <p class="card-text">
-                            <i>De la passion ou de ton imagination</i>
-                        </p>
+
+            {% for categorie in categories %}
+
+                <div class="col-md-3">
+                    <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : categorie.id }) }}'">
+                        <img src="{{ asset(categorie.visuel) }}" class="card-img-top" alt="{{ categorie.libelle }}">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ categorie.libelle }}</h4>
+                            <p class="card-text">
+                                <i>{{ categorie.texte }}</i>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : 2 }) }}'">
-                    <img src="{{ asset("images/categories/legumes.jpg") }}" class="card-img-top" alt="Légumes">
-                    <div class="card-body">
-                        <h4 class="card-title">Légumes</h4>
-                        <p class="card-text">
-                            <i>Plus tu en manges, moins tu en es un</i>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : 3 }) }}'">
-                    <img src="{{ asset("images/categories/junk_food.jpg") }}" class="card-img-top" alt="Junk Food">
-                    <div class="card-body">
-                        <h4 class="card-title">Junk Food</h4>
-                        <p class="card-text">
-                            <i>Chère et cancérogène, tu es prévenu(e)</i>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card clickable" onclick="location = '{{ path("app_boutique_rayon", { 'idCategorie' : 4 }) }}'">
-                    <img src="{{ asset("images/categories/corona.jpg") }}" class="card-img-top" alt="Virus">
-                    <div class="card-body">
-                        <h4 class="card-title">Virus</h4>
-                        <p class="card-text">
-                            <i>Une opportunité, il faut en profiter</i>
-                        </p>
-                    </div>
-                </div>
-            </div>
+
+            {% endfor %}
+
         </div>
     </div>
 {% endblock %}
