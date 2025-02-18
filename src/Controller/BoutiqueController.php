@@ -53,6 +53,7 @@ final class BoutiqueController extends AbstractController
     )]
     public function chercher(boutiqueService $boutique, string $recherche): Response
     {
+        $recherche = urldecode($recherche);
         $produits = $boutique->findProduitsByLibelleOrTexte($recherche);
 
         return $this->render('boutique/chercher.html.twig', [
