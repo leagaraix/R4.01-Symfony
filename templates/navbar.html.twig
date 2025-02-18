@@ -21,21 +21,22 @@
 					{% trans %} navbar.contact {% endtrans %}
 				</a>
 			</li>
-			{# TODO : ajouter au fil des TPs les autres éléments du menu #}
 		</ul>
-		<!-- Début champ de recherche -->
+
+		<!-- DEBUT CHAMP DE RECHERCHE -->
+		<form class="form-inline my-2 my-lg-0">
+			<input class="form-control mr-sm-2" id="searchString" type="text" placeholder="{% trans %} navbar.chercher {% endtrans %}" aria-label="Search">
+			<button class="btn btn-secondary my-2 my-sm-0" id="searchButton">
+				<i class="fas fa-search"></i>
+			</button>
+		</form>
+		<!-- FIN CHAMP DE RECHERCHE -->
+
+		<!-- DEBUT MENU DES MONNAIES -->
 		{# TODO #}
-		<!-- Fin champ de recherche -->
-		<!-- Début menu des monnaies -->
-		{# TODO #}
-		<!-- Fin menu des monnaies -->
+		<!-- FIN MENU DES MONNAIES -->
 
-		<!-- Début menu des langues -->
-
-		<!--
-			Pour chaque locale supportée, SAUF LA LOCALE ACTUELLE,
-
-		-->
+		<!-- DEBUT MENU DES LANGUES -->
 
 		<!-- Locale actuelle -->
 		{% set locale = app.request.attributes.get('_locale') %}
@@ -47,10 +48,16 @@
 
 		<!-- Afficher la liste des locales possibles, sauf la locale actuelle -->
 		{% for uneLocale in supported_locales | split('|') %}
-			{{ dump(uneLocale) }} <!-- TODO : IL SEMBLERAIT QUE LE PROBLEME VIENNE DE LA RECUPERATION DE CETTE VALEUR -->
 			{% if (uneLocale != locale)  %}
 				<div class="dropdown-menu" aria-labelledby="dropdown01" style="min-width: 5rem;">
-					<a class="dropdown-item" href="/info/R401/fr/contact">
+					<!-- Récupérer la route actuelle -->
+					{% set route = app.request.attributes.get('_route') %}
+					<!-- Récupérer les paramètres de la route actuelle -->
+					{% set params = app.request.attributes.get('_route_params') %}
+					<!-- Modifier la valeur du paramètre _locale dans params -->
+					{% set params = params | merge ({ '_locale': uneLocale }) %}
+
+					<a class="dropdown-item" href="{{ path(route, params) }}">
 						<img src="{{ asset("images/locale/"~uneLocale~".png") }}" alt="{{ uneLocale|upper }}">
 					</a>
 				</div>
@@ -60,7 +67,7 @@
 			</li>
 		</ul>
 
-		<!-- Fin Menu des langues -->
+		<!-- FIN MENU DES LANGUES -->
 
 	</div>
 </nav>
