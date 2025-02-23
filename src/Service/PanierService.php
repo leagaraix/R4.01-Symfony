@@ -27,9 +27,11 @@ class PanierService
     // Renvoie le montant total du panier
     public function getTotal() : float
     {
-        $total = 0;
-        foreach($this->panier as $produit => $quantite) {
-           $total += $quantite;
+        $total = 0.0;
+        foreach($this->panier as $idProduit => $quantite) {
+           $produit = $this->boutique->findProduitById($idProduit);
+           // Vérifier que le produit existe bien pour éviter les erreurs
+           if ($produit) { $total += $produit->prix * $quantite; }
         }
         return $total;
     }
@@ -38,7 +40,7 @@ class PanierService
     public function getNombreProduits() : int
     {
         $nbProduits = 0;
-        foreach($this->panier as $produit => $quantite) {                       // MEILLEURE FACON D'ECRIRE CA ?
+        foreach($this->panier as $produit => $quantite) {
             $nbProduits++;
         }
         return $nbProduits;
@@ -47,40 +49,62 @@ class PanierService
     // Ajouter au panier le produit $idProduit en quantite $quantite 
     public function ajouterProduit(int $idProduit, int $quantite = 1) : void
     {
-        $this->panier[$idProduit] = $quantite;
+        if (isset($this->panier[$idProduit])) {
+            $this->panier[$idProduit] += $quantite;
+        } else {
+            $this->panier[$idProduit] = $quantite;
+        }
+
+        // Sauvegarder le panier dans la session
+        $this->session->set('panier', $this->panier);
     }
 
     // Enlever du panier le produit $idProduit en quantite $quantite 
     public function enleverProduit(int $idProduit, int $quantite = 1) : void
     {
         $this->panier[$idProduit] -= $quantite;
-        if($this->panier[$idProduit] < 0) {
+        if($this->panier[$idProduit] <= 0) {
             $this->supprimerProduit($idProduit);
         }
+
+        // Sauvegarder le panier dans la session
+        $this->session->set('panier', $this->panier);
     }
 
     // Supprimer le produit $idProduit du panier
     public function supprimerProduit(int $idProduit) : void
     {
         unset($this->panier[$idProduit]);
+        $this->session->set('panier', $this->panier);
     }
 
     // Vider complètement le panier
     public function vider() : void
     {
         $this->panier = [];
+
+        // Sauvegarder le panier dans la session
+        $this->session->set('panier', $this->panier);
     }
 
     // Renvoie le contenu du panier dans le but de l'afficher
     //   => un tableau d'éléments [ "produit" => un objet produit, "quantite" => sa quantite ]
     public function getContenu() : array
     {
-        $afficherPanier = array();
+        $contenuPanier = array();
+
         foreach($this->panier as $idProduit => $quantite) {
+
             $produit = $this->boutique->findProduitById($idProduit);
-            $afficherPanier[$produit] = $quantite;
+
+            if ($produit) {
+                $contenuPanier[] = [
+                    "produit" => $produit,
+                    "quantite" => $quantite
+                ];
+            }
         }
-        return $afficherPanier;
+        return $contenuPanier;
     }
 
 }

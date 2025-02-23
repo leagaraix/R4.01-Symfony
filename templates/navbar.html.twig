@@ -21,6 +21,17 @@
 					{% trans %} navbar.contact {% endtrans %}
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path("app_panier_index") }}">
+					<i class="fas fa-shopping-cart"></i>
+					<span class='badge badge-pill badge-danger'>
+						{{ render(
+							controller('App\\Controller\\PanierController::nombreProduits')
+						) }}
+					</span>
+					{% trans %} navbar.produits {% endtrans %}
+				</a>
+			</li>
 		</ul>
 
 		<!-- DEBUT CHAMP DE RECHERCHE -->

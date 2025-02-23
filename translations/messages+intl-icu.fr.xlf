@@ -41,6 +41,22 @@
         <source>default.contact.contact</source>
         <target>Garder le contact</target>
       </trans-unit>
+      <trans-unit id="XCJ5ytl" resname="boutique.chercher.title">
+        <source>boutique.chercher.title</source>
+        <target>Recherche</target>
+      </trans-unit>
+      <trans-unit id="yE60C99" resname="navbar.produits">
+        <source>navbar.produits</source>
+        <target>Produit(s)</target>
+      </trans-unit>
+      <trans-unit id="mB1UjTu" resname="navbar.chercher">
+        <source>navbar.chercher</source>
+        <target>Chercher produit(s)</target>
+      </trans-unit>
+      <trans-unit id="fabJWdg" resname="panier.index.title">
+        <source>panier.index.title</source>
+        <target>Mon panier</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

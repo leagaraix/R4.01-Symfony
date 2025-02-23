@@ -7,10 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\BoutiqueService;
 
+#[Route(path: '/{_locale}/boutique', requirements: ['_locale' => '%app.supported_locales%'])]
 final class BoutiqueController extends AbstractController
 {
     #[Route(
-        path: '/{_locale}/boutique',
+        path: '/',
         name: 'app_boutique_index',
         requirements: ['_locale' => '%app.supported_locales%']
     )]
@@ -27,9 +28,9 @@ final class BoutiqueController extends AbstractController
     }
 
     #[Route(
-        path: '/{_locale}/boutique/rayon/{idCategorie}',
+        path: '/rayon/{idCategorie}',
         name: 'app_boutique_rayon',
-        requirements: ['_locale' => '%app.supported_locales%']
+        requirements: ['_locale' => '%app.supported_locales%', 'idCategorie' => '\d+']
     )]
     public function rayon(int $idCategorie, BoutiqueService $boutique): Response
     {
@@ -43,11 +44,11 @@ final class BoutiqueController extends AbstractController
     }
 
     #[Route(
-        path: '/{_locale}/boutique/chercher/{recherche}',
+        path: '/chercher/{recherche}',
         name: 'app_boutique_chercher',
         requirements: [
-            'recherche' => '.+', // .+ est le regexp pour avoir tous les car, / compris
-            '_locale' => '%app.supported_locales%'
+            '_locale' => '%app.supported_locales%',
+            'recherche' => '.+' // .+ est le regexp pour avoir tous les car, / compris
         ],
         defaults: ['recherche' => ''] // Valeur par défaut de recherche doit être une chaîne vide
     )]
