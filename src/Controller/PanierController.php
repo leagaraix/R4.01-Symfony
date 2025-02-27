@@ -21,7 +21,8 @@ final class PanierController extends AbstractController
     public function index(PanierService $panier): Response {
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
-            'panier' => $panier,
+            'total' => $panier->getTotal(),
+            'nombreProduits' => $panier->getNombreProduits(),
             'contenuPanier' => $panier->getContenu()
         ]);
     }

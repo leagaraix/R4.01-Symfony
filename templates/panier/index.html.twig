@@ -10,9 +10,9 @@
             </a>
             <h3>
                 <i class="fas fa-shopping-cart"></i>
-                <span class="badge badge-pill badge-danger">{{ panier.getNombreProduits() }}</span>
+                <span class="badge badge-pill badge-danger">{{ nombreProduits }}</span>
                 produit(s) - montant :
-                <b>{{ panier.getTotal() }} €</b>
+                <b>{{ total }} €</b>
             </h3>
         </div>
 
@@ -20,7 +20,7 @@
         <div class="card-body">
 
             {# S'il n'y a pas de produits #}
-            {% if panier.getNombreProduits() == 0 %}
+            {% if nombreProduits == 0 %}
 
                 <div class="card-body">
                     <h5>
@@ -61,7 +61,7 @@
                                     <img src="{{ asset(ligneProduit.produit.visuel) }}" class="cart-img-produit" alt="{{ ligneProduit.produit.libelle }}">
                                 </td>
                                 <td>
-                                    <a href="{{ path("app_boutique_rayon", { idCategorie: ligneProduit.produit.idCategorie }) }}">
+                                    <a href="{{ path("app_boutique_rayon", { idCategorie: ligneProduit.produit.categorie.id }) }}">
                                         <b>{{ ligneProduit.produit.libelle }}</b>
                                     </a>
                                 </td>
@@ -95,7 +95,7 @@
                                     Total
                                 </th>
                                 <th class="text-right">
-                                    {{ panier.getTotal() }} €
+                                    {{ total }} €
                                 </th>
                                 <th>
                                     <a href="{{ path("app_panier_vider") }}">

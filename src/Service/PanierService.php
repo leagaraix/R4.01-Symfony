@@ -1,8 +1,10 @@
 <?php
 namespace App\Service;
 
+use App\Entity\Categorie;
+use App\Entity\Produit;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
-use App\Service\BoutiqueService;
 
 // Service pour manipuler le panier et le stocker en session
 class PanierService
@@ -10,15 +12,19 @@ class PanierService
     ////////////////////////////////////////////////////////////////////////////
     private $session;   // Le service session
     private $boutique;  // Le service boutique
+    private $produitRepository;
+    private $categorieRepository;
     private $panier;    // Tableau associatif, la clé est un idProduit, la valeur associée est une quantité
                         //   donc $this->panier[$idProduit] = quantité du produit dont l'id = $idProduit
     const PANIER_SESSION = 'panier'; // Le nom de la variable de session pour faire persister $this->panier
 
     // Constructeur du service
-    public function __construct(RequestStack $requestStack, BoutiqueService $boutique)
+    public function __construct(RequestStack $requestStack, ManagerRegistry $managerRegistry, BoutiqueService $boutique)
     {
         // Récupération des services session et BoutiqueService
         $this->boutique = $boutique;
+        $this->produitRepository = $managerRegistry->getRepository(Produit::class);
+        $this->categorieRepository = $managerRegistry->getRepository(Categorie::class);
         $this->session = $requestStack->getSession();
         // Récupération du panier en session s'il existe, init. à vide sinon
         $this->panier = $this->session->get('panier', array());
@@ -29,9 +35,11 @@ class PanierService
     {
         $total = 0.0;
         foreach($this->panier as $idProduit => $quantite) {
-           $produit = $this->boutique->findProduitById($idProduit);
+           //$produit = $this->boutique->findProduitById($idProduit);
+           $produit = $this->produitRepository->find($idProduit);
            // Vérifier que le produit existe bien pour éviter les erreurs
-           if ($produit) { $total += $produit->prix * $quantite; }
+           if ($produit) { $total += $produit->getPrix() * $quantite; }
+           // TODO : appeler getPrix() correctement
         }
         return $total;
     }
@@ -95,7 +103,7 @@ class PanierService
 
         foreach($this->panier as $idProduit => $quantite) {
 
-            $produit = $this->boutique->findProduitById($idProduit);
+            $produit = $this->produitRepository->find($idProduit);
 
             if ($produit) {
                 $contenuPanier[] = [
