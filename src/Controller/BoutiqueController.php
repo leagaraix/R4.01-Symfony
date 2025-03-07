@@ -59,7 +59,8 @@ final class BoutiqueController extends AbstractController
     public function chercher(ProduitRepository $produitRepository, string $recherche): Response
     {
         $recherche = urldecode($recherche);
-        $produits = $produitRepository->findBy(['libelle' => $recherche, 'texte' => $recherche]);
+
+        $produits = $produitRepository->findByLibelleOrTexte($recherche);
 
         return $this->render('boutique/chercher.html.twig', [
             'recherche' => $recherche,

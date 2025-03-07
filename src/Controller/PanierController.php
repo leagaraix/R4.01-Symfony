@@ -22,7 +22,7 @@ final class PanierController extends AbstractController
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
             'total' => $panier->getTotal(),
-            'nombreProduits' => $panier->getNombreProduits(),
+            'nombreProduits' => $panier->getNombreProduits(), // TODO : Est-ce qu'il vaut mieux passer un paramètre nombreProduits, ou appeler contenuPanier|length dans le Twig ?
             'contenuPanier' => $panier->getContenu()
         ]);
     }

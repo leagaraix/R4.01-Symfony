@@ -11,21 +11,18 @@ class PanierService
 {
     ////////////////////////////////////////////////////////////////////////////
     private $session;   // Le service session
-    private $boutique;  // Le service boutique
     private $produitRepository;
-    private $categorieRepository;
     private $panier;    // Tableau associatif, la clé est un idProduit, la valeur associée est une quantité
                         //   donc $this->panier[$idProduit] = quantité du produit dont l'id = $idProduit
     const PANIER_SESSION = 'panier'; // Le nom de la variable de session pour faire persister $this->panier
 
     // Constructeur du service
-    public function __construct(RequestStack $requestStack, ManagerRegistry $managerRegistry, BoutiqueService $boutique)
+    public function __construct(RequestStack $requestStack, ManagerRegistry $managerRegistry)
     {
-        // Récupération des services session et BoutiqueService
-        $this->boutique = $boutique;
+        // Récupération du service session et du Repository Produit
         $this->produitRepository = $managerRegistry->getRepository(Produit::class);
-        $this->categorieRepository = $managerRegistry->getRepository(Categorie::class);
         $this->session = $requestStack->getSession();
+
         // Récupération du panier en session s'il existe, init. à vide sinon
         $this->panier = $this->session->get('panier', array());
     }
@@ -35,11 +32,9 @@ class PanierService
     {
         $total = 0.0;
         foreach($this->panier as $idProduit => $quantite) {
-           //$produit = $this->boutique->findProduitById($idProduit);
            $produit = $this->produitRepository->find($idProduit);
            // Vérifier que le produit existe bien pour éviter les erreurs
            if ($produit) { $total += $produit->getPrix() * $quantite; }
-           // TODO : appeler getPrix() correctement
         }
         return $total;
     }

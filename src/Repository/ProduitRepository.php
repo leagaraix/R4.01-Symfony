@@ -16,6 +16,20 @@ class ProduitRepository extends ServiceEntityRepository
         parent::__construct($registry, Produit::class);
     }
 
+    /**
+     * @return Produit[] Returns an array of Produits objects
+     */
+    public function findByLibelleOrTexte(string $recherche): array {
+
+        // Utilisation de QueryBuilder pour écrire une requête
+        $qb = $this->createQueryBuilder('p') // p = alias de "produit"
+            ->where('p.libelle LIKE :recherche OR p.texte LIKE :recherche')
+            ->setParameter('recherche', '%'.$recherche.'%');
+
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
+
     //    /**
     //     * @return Produit[] Returns an array of Produit objects
     //     */

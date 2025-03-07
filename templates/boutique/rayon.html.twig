@@ -12,7 +12,7 @@
             <h3>
                 <i class="fas fa-store"></i>
                 Rayon <b>{{ categorie.libelle }}</b>
-                <span class="badge badge-pill badge-info">03</span> {# TODO : compter le nombre de produits disponibles dans la catégorie #}
+                <span class="badge badge-pill badge-info">{{ produits|length }}</span>
                 produit(s) disponible(s)
             </h3>
         </div>
@@ -20,28 +20,40 @@
         {# Affichage de tous les produits #}
         <div class="card-body row">
 
-            {# TODO : gestion d'erreur -> gérer l'affichage si aucun produit n'est disponible #}
+            {% if produits|length == 0 %}
 
-            {% for produit in produits %}
-                <div class="col-md-4">
-                    <div class="card clickable" onclick="location = '{{ path("app_panier_ajouter", { idProduit: produit.id, quantite: 1 }) }}'"
-                         data-toggle="tooltip" title="Ajouter <b>{{ produit.libelle }}</b> à mon panier" data-placement="bottom" data-html="true" data-container="body">
-                        <img src="{{ asset(produit.visuel) }}" class="card-img-produit" alt="{{ produit.libelle }}">
-                        <div class="card-body">
-                            <h4 class="card-title">{{ produit.libelle }}</h4>
-                            <p class="card-text">
-                                <i>{{ produit.texte }}</i>
-                            </p>
-                            <h2>
-                                <span class="badge badge-primary">
-                                    <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;
-                                    {{ produit.prix }} €
-                                </span>
-                            </h2>
+                <div class="card-body">
+                    <p class="card-text">Aucun produit dans ce rayon.</p>
+                    <a class="btn-back text-secondary" href="{{ path("app_boutique_index") }}">
+                        <p class="card-text">Retour à la boutique</p>
+                        <i class="fas fa-2x fa-arrow-circle-left"></i>
+                    </a>
+                </div>
+
+            {% else %}
+
+                {% for produit in produits %}
+                    <div class="col-md-4">
+                        <div class="card clickable" onclick="location = '{{ path("app_panier_ajouter", { idProduit: produit.id, quantite: 1 }) }}'"
+                             data-toggle="tooltip" title="Ajouter <b>{{ produit.libelle }}</b> à mon panier" data-placement="bottom" data-html="true" data-container="body">
+                            <img src="{{ asset(produit.visuel) }}" class="card-img-produit" alt="{{ produit.libelle }}">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ produit.libelle }}</h4>
+                                <p class="card-text">
+                                    <i>{{ produit.texte }}</i>
+                                </p>
+                                <h2>
+                                    <span class="badge badge-primary">
+                                        <i class="fas fa-cart-plus"></i>&nbsp;&nbsp;
+                                        {{ produit.prix }} €
+                                    </span>
+                                </h2>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+
+            {% endif %}
 
         </div>
     </div>
