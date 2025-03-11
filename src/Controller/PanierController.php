@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Usager;
 use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,7 @@ final class PanierController extends AbstractController
      */
     #[Route(
         path: '/',
-        name: 'app_panier_index',
-        requirements: ['_locale' => '%app.supported_locales%']
+        name: 'app_panier_index'
     )]
     public function index(PanierService $panier): Response {
         return $this->render('panier/index.html.twig', [
@@ -34,7 +34,6 @@ final class PanierController extends AbstractController
         path: '/ajouter/{idProduit}/{quantite}',
         name: 'app_panier_ajouter',
         requirements: [
-            '_locale' => '%app.supported_locales%',
             'idProduit' => '\d+',
             'quantite' => '\d+'
         ],
@@ -52,7 +51,6 @@ final class PanierController extends AbstractController
         path: '/enlever/{idProduit}/{quantite}',
         name: 'app_panier_enlever',
         requirements: [
-            '_locale' => '%app.supported_locales%',
             'idProduit' => '\d+',
             'quantite' => '\d+'
         ],
@@ -69,10 +67,7 @@ final class PanierController extends AbstractController
     #[Route(
         path: '/supprimer/{idProduit}',
         name: 'app_panier_supprimer',
-        requirements: [
-            '_locale' => '%app.supported_locales%',
-            'idProduit' => '\d+'
-        ]
+        requirements: ['idProduit' => '\d+']
     )]
     public function supprimer(int $idProduit, PanierService $panier): Response {
         $panier->supprimerProduit($idProduit);
@@ -84,14 +79,23 @@ final class PanierController extends AbstractController
      */
     #[Route(
         path: '/vider',
-        name: 'app_panier_vider',
-        requirements: [
-            '_locale' => '%app.supported_locales%'
-        ]
+        name: 'app_panier_vider'
     )]
     public function vider(PanierService $panier): Response {
         $panier->vider();
         return $this->redirectToRoute('app_panier_index');
+    }
+
+    /**
+     * Lance la commande du panier.
+     */
+    #[Route(
+        path: '/commande',
+        name: 'app_panier_commander',
+    )]
+    public function commander(PanierService $panier): Response {
+        $panier->panierToCommande();
+        return $this->render('panier/commande.html.twig');
     }
 
     /**

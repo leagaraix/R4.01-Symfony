@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} panier.index.title {% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="card col-md-12">
+        <div class="card-header">
+            <a class="btn-back text-secondary" href="/info/R401/fr/usager/commandes"> {# TODO : renvoyer à la liste des commandes de l'utilisateur #}
+                <i class="fas fa-2x fa-arrow-circle-left"></i>
+            </a>
+            <h3>Commande Passée</h3>
+        </div>
+        <div class="card-body">
+            L'usager
+            {{ usager.prenom }} {# TODO : peut-être pas les bons appels, dépend de comment j'aurais passé l'objet #}
+            {{ usager.nom }}
+            a passé la commande n°
+            <span class="badge badge-pill badge-secondary">{{ commande.id }}</span>
+            le
+            {{ commande.dateCreation }} à 14:09 {# TODO : ça devait être un champ DateTime ??? #}
+            <hr>
+            <a class="btn btn-primary" href="/info/R401/fr/usager/commandes"> {# TODO : renvoyer à la liste des commandes de l'utilisateur #}
+                Mes commandes
+            </a>
+        </div>
+    </div>
+{% endblock %}

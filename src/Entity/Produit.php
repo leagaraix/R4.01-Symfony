@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,17 @@ class Produit
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Categorie $categorie = null;
+
+    /**
+     * @var Collection<int, LigneCommande>
+     */
+    #[ORM\OneToMany(targetEntity: LigneCommande::class, mappedBy: 'produit')]
+    private Collection $lignesCommande;
+
+    public function __construct()
+    {
+        $this->lignesCommande = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +103,36 @@ class Produit
     public function setCategorie(?Categorie $categorie): static
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LigneCommande>
+     */
+    public function getLignesCommande(): Collection
+    {
+        return $this->lignesCommande;
+    }
+
+    public function addLignesCommande(LigneCommande $lignesCommande): static
+    {
+        if (!$this->lignesCommande->contains($lignesCommande)) {
+            $this->lignesCommande->add($lignesCommande);
+            $lignesCommande->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLignesCommande(LigneCommande $lignesCommande): static
+    {
+        if ($this->lignesCommande->removeElement($lignesCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($lignesCommande->getProduit() === $this) {
+                $lignesCommande->setProduit(null);
+            }
+        }
 
         return $this;
     }

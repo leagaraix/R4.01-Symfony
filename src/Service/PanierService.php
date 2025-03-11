@@ -2,6 +2,8 @@
 namespace App\Service;
 
 use App\Entity\Categorie;
+use App\Entity\Commande;
+use App\Entity\LigneCommande;
 use App\Entity\Produit;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -108,6 +110,37 @@ class PanierService
             }
         }
         return $contenuPanier;
+    }
+
+    // Créer une commande à partir du contenu du panier (s'il n'est pas vide)
+    public function panierToCommande(Usager $usager) : ?Commande {
+
+        // Vérifier que le panier n'est pas vide
+        if ($this->panier.$this->getNombreProduits() == 0) {
+            return null;
+        }
+
+        // Création de la commande
+        $commande = new Commande();
+
+        // Parcourir le panier, ajouter une ligne de commande à la commande à chaque nouveau produit
+        foreach($this->panier as $idProduit => $quantite) {
+
+            // Récupérer le produit concerné
+            $produit = $this->produitRepository->find($idProduit);
+
+            // Création de la ligne de commande pour ce produit
+            $ligneCommande = new LigneCommande();
+            $ligneCommande->setProduit($produit);
+            $ligneCommande->setCommande($commande);
+            $ligneCommande->setQuantite($quantite);
+            $ligneCommande->setPrix($produit->getPrix());
+        }
+
+        // Vider le panier
+        $this->vider();
+
+        return $commande;
     }
 
 }

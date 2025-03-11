@@ -1,26 +1,37 @@
-{# barre de navigation  #}
+{# Barre de navigation  #}
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+
+	{# Vers l'accueil #}
 	<a class="navbar-brand" href="{{ path("app_default_index") }}">
 		<i class="fas fa-home"></i>
 		{% trans %} navbar.accueil {% endtrans %}
 	</a>
+
+	{# Bouton d'accès au menu (s'il est rétracté) #}
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
+
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 		<ul class="navbar-nav mr-auto">
+
+			{# Vers la boutique #}
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path("app_boutique_index") }}">
 					<i class="fas fa-store"></i>
 					{% trans %} navbar.boutique {% endtrans %}
 				</a>
 			</li>
+
+			{# Vers la page Contact #}
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path("app_default_contact") }}">
 					<i class="fas fa-comments"></i>
 					{% trans %} navbar.contact {% endtrans %}
 				</a>
 			</li>
+
+			{# Vers le panier #}
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path("app_panier_index") }}">
 					<i class="fas fa-shopping-cart"></i>
@@ -32,6 +43,26 @@
 					{% trans %} navbar.produits {% endtrans %}
 				</a>
 			</li>
+
+			{# Liste déroulante pour gérer l'usager #}
+			<ul class="navbar-nav my-0">
+				<li class="nav-item dropdown">
+					<span class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-user"></i>
+													Usager											</span>
+					<div class="dropdown-menu" aria-labelledby="dropdown02" style="min-width: 5rem;">
+						<a class="dropdown-item " href="{{ path("app_usager_new") }}">
+							Inscription
+						</a>
+						<a class="dropdown-item " href="{{ path("app_usager_index") }}">
+							Accueil
+						</a>
+
+						{# TODO : ajouter les autres paramètres du menu déroulant #}
+
+					</div>
+				</li>
+			</ul>
 		</ul>
 
 		<!-- DEBUT CHAMP DE RECHERCHE -->
