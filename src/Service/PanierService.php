@@ -5,6 +5,7 @@ use App\Entity\Categorie;
 use App\Entity\Commande;
 use App\Entity\LigneCommande;
 use App\Entity\Produit;
+use App\Entity\Usager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -116,12 +117,15 @@ class PanierService
     public function panierToCommande(Usager $usager) : ?Commande {
 
         // Vérifier que le panier n'est pas vide
-        if ($this->panier.$this->getNombreProduits() == 0) {
+        if ($this->getNombreProduits() == 0) {
             return null;
         }
 
         // Création de la commande
         $commande = new Commande();
+        $commande->setUsager($usager);
+        $commande->setId(3); // !!!!!!!!!!!!
+        $commande->setDateCreation(new \DateTime());
 
         // Parcourir le panier, ajouter une ligne de commande à la commande à chaque nouveau produit
         foreach($this->panier as $idProduit => $quantite) {
@@ -135,6 +139,9 @@ class PanierService
             $ligneCommande->setCommande($commande);
             $ligneCommande->setQuantite($quantite);
             $ligneCommande->setPrix($produit->getPrix());
+
+            // Ajouter la ligne à la commande
+            $commande->addLignesCommande($ligneCommande);
         }
 
         // Vider le panier

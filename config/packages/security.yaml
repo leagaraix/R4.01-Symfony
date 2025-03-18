@@ -9,6 +9,8 @@ security:
             entity:
                 class: App\Entity\Usager
                 property: email
+        role_hierarchy:
+            ROLE_ADMIN: ROLE_CLIENT
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -16,6 +18,14 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: true
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -28,6 +38,9 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/(%app.supported_locales%)/usager/new, roles: PUBLIC_ACCESS }
+        - { path: ^/(%app.supported_locales%)/usager, roles: ROLE_CLIENT }
+        - { path: ^/(%app.supported_locales%)/panier/commande, roles: ROLE_CLIENT }
 
 when@test:
     security:

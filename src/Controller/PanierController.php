@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Usager;
+use App\Repository\UsagerRepository;
 use App\Service\PanierService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -94,8 +95,17 @@ final class PanierController extends AbstractController
         name: 'app_panier_commander',
     )]
     public function commander(PanierService $panier): Response {
-        $panier->panierToCommande();
-        return $this->render('panier/commande.html.twig');
+
+        // TODO : JE N'AI PAS COMPRIS COMMENT ON AUTHENTIFIE L'UTILISATEUR
+        //$usager = $usagerRepository->find(1); // Pour le debug, ajouter ça dans les paramètres : UsagerRepository $usagerRepository
+        //$hasAccess = $this->isGranted('ROLE_CLIENT');
+        $this->denyAccessUnlessGranted('ROLE_CLIENT');
+        //$usager = $this->getUser();
+        $commande = $panier->panierToCommande($usager);
+        return $this->render('panier/commande.html.twig', [
+            'usager' => $usager,
+            'commande' => $commande
+        ]);
     }
 
     /**
