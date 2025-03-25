@@ -3,9 +3,31 @@
 {% block title %}New Usager{% endblock %}
 
 {% block body %}
-    <h1>Create new Usager</h1>
 
-    {{ include('usager/_form.html.twig') }}
+<div class="card col-md-6 offset-3">
+    <div class="card-header">
+        <a class="btn-back text-secondary" href="{{ path("app_boutique_index") }}">
+            <i class="fas fa-2x fa-arrow-circle-left"></i>
+        </a>
+        <h3>
+            <i class="fas fa-user-plus"></i>
+            Inscription
+        </h3>
+    </div>
+    <div class="card-body">
 
-    <a href="{{ path('app_usager_index') }}">back to list</a>
+        {{ include('usager/_form.html.twig') }}
+
+        <hr>
+        <div class="col-md-12 text-right">
+            <p>
+                Déjà client ?
+                <a class="btn btn-sm btn-secondary" type="submit" href="{{ path("app_login") }}">
+                    Connexion
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

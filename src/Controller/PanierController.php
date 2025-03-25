@@ -100,7 +100,7 @@ final class PanierController extends AbstractController
         //$usager = $usagerRepository->find(1); // Pour le debug, ajouter ça dans les paramètres : UsagerRepository $usagerRepository
         //$hasAccess = $this->isGranted('ROLE_CLIENT');
         $this->denyAccessUnlessGranted('ROLE_CLIENT');
-        //$usager = $this->getUser();
+        $usager = $this->getUser();
         $commande = $panier->panierToCommande($usager);
         return $this->render('panier/commande.html.twig', [
             'usager' => $usager,

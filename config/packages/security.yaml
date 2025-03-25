@@ -9,8 +9,8 @@ security:
             entity:
                 class: App\Entity\Usager
                 property: email
-        role_hierarchy:
-            ROLE_ADMIN: ROLE_CLIENT
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_CLIENT
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -24,6 +24,7 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
+                target: app_login
                 # where to redirect after logout
                 # target: app_any_route
 

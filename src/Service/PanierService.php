@@ -144,6 +144,12 @@ class PanierService
             $commande->addLignesCommande($ligneCommande);
         }
 
+        // TODO : voir cours 4 p.12, il manque sûrement persist() et flush()
+        // déjà fait usagerController, en bas, donc il doit y avoir des façons de faire
+
+
+
+
         // Vider le panier
         $this->vider();
 

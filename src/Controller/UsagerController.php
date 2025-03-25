@@ -16,11 +16,10 @@ use Symfony\Component\Routing\Attribute\Route;
 final class UsagerController extends AbstractController
 {
     #[Route(name: 'app_usager_index', methods: ['GET'])]
-    public function index(UsagerRepository $usagerRepository): Response
+    public function index(): Response
     {
         return $this->render('usager/index.html.twig', [
-            'usagers' => $usagerRepository->find(1)
-            //'usagers' => $usagerRepository->findAll(),
+            'usager' => $this->getUser(),
         ]);
     }
 
@@ -44,7 +43,7 @@ final class UsagerController extends AbstractController
             $entityManager->persist($usager);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_usager_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('usager/new.html.twig', [
