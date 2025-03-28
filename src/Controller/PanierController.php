@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Usager;
 use App\Repository\UsagerRepository;
 use App\Service\PanierService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -23,7 +25,7 @@ final class PanierController extends AbstractController
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
             'total' => $panier->getTotal(),
-            'nombreProduits' => $panier->getNombreProduits(), // TODO : Est-ce qu'il vaut mieux passer un paramètre nombreProduits, ou appeler contenuPanier|length dans le Twig ?
+            'nombreProduits' => $panier->getNombreProduits(),
             'contenuPanier' => $panier->getContenu()
         ]);
     }
@@ -91,21 +93,26 @@ final class PanierController extends AbstractController
      * Lance la commande du panier.
      */
     #[Route(
-        path: '/commande',
-        name: 'app_panier_commander',
+        path: '/commander',
+        name: 'app_panier_commander'
     )]
-    public function commander(PanierService $panier): Response {
+    public function commander(PanierService $panier, Security $security, EntityManagerInterface $entityManager): Response
+    {
 
-        // TODO : JE N'AI PAS COMPRIS COMMENT ON AUTHENTIFIE L'UTILISATEUR
-        //$usager = $usagerRepository->find(1); // Pour le debug, ajouter ça dans les paramètres : UsagerRepository $usagerRepository
-        //$hasAccess = $this->isGranted('ROLE_CLIENT');
         $this->denyAccessUnlessGranted('ROLE_CLIENT');
-        $usager = $this->getUser();
-        $commande = $panier->panierToCommande($usager);
-        return $this->render('panier/commande.html.twig', [
-            'usager' => $usager,
-            'commande' => $commande
-        ]);
+
+        $usager = $security->getUser();
+        $commande = $panier->panierToCommande($usager, $entityManager);
+
+        if ($commande) {
+            return $this->render('panier/commande.html.twig', [
+                'usager' => $usager,
+                'commande' => $commande
+            ]);
+        } else {
+            return $this->redirectToRoute('app_panier_index');
+        }
+
     }
 
     /**

@@ -53,32 +53,32 @@
 						{% if (app.user) %}
 							{{ app.user.prenom }}
 						{% else %}
-							Usager
+							{% trans %} navbar.usager {% endtrans %}
 						{% endif %}
 					</span>
 					<div class="dropdown-menu" aria-labelledby="dropdown02" style="min-width: 5rem;">
 						{% if (app.user) %}
 							<a class="dropdown-item disabled" href="{{ path("app_login") }}">
-								Connexion						</a>
+								{% trans %} navbar.connexion {% endtrans %}</a>
 							<a class="dropdown-item disabled" href="{{ path("app_usager_new") }}">
-								Inscription						</a>
+								{% trans %} navbar.inscription {% endtrans %}</a>
 							<a class="dropdown-item" href="{{ path("app_usager_index") }}">
-								Mon Compte						</a>
-							<a class="dropdown-item disabled" href="">
-								Mes Commandes						</a>
+								{% trans %} navbar.compte {% endtrans %} </a>
+							<a class="dropdown-item" href="{{ path("app_usager_commandes") }}">
+								{% trans %} navbar.commandes {% endtrans %} </a>
 							<a class="dropdown-item" href="{{ path("app_logout") }}">
-								Déconnexion						</a>
+								{% trans %} navbar.deconnexion {% endtrans %} </a>
 						{% else %}
 							<a class="dropdown-item" href="{{ path("app_login") }}">
-								Connexion						</a>
+								{% trans %} navbar.connexion {% endtrans %}	</a>
 							<a class="dropdown-item" href="{{ path("app_usager_new") }}">
-								Inscription						</a>
+								{% trans %} navbar.inscription {% endtrans %} </a>
 							<a class="dropdown-item disabled" href="{{ path("app_usager_index") }}">
-								Mon Compte						</a>
-							<a class="dropdown-item disabled" href="">
-								Mes Commandes						</a>
+								{% trans %} navbar.compte {% endtrans %} </a>
+							<a class="dropdown-item disabled" href="{{ path("app_usager_commandes") }}">
+								{% trans %} navbar.commandes {% endtrans %} </a>
 							<a class="dropdown-item disabled" href="{{ path("app_logout") }}">
-								Déconnexion						</a>
+								{% trans %} navbar.deconnexion {% endtrans %} </a>
 						{% endif %}
 
 					</div>

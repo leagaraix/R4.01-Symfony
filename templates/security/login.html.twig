@@ -28,11 +28,11 @@
             {% endif %}
 
             <label for="inputEmail">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+            <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
             <label for="inputPassword">Mot de Passe</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-            <input type="hidden" name="_csrf_token" value="f87a26d671f45cc55a08d6c68d8e.-5ayBloFYJxNr_isWail4MQfrAsvS8vpTR8Ao27w0hU.mMf4NQp2Vqsl47b8Lfjvt6VllGgcBZ7aN1hW1CC8ul-x0-NKNzAW6y7OtQ">            {# TODO :
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">            {# TODO :
             Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
             See https://symfony.com/doc/current/security/remember_me.html
 

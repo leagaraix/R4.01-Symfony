@@ -20,7 +20,7 @@ class Commande
     private ?\DateTimeInterface $dateCreation = null;
 
     #[ORM\Column]
-    private ?bool $validation = null;
+    private ?bool $validation = false;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     #[ORM\JoinColumn(nullable: false)]
@@ -29,7 +29,7 @@ class Commande
     /**
      * @var Collection<int, LigneCommande>
      */
-    #[ORM\OneToMany(targetEntity: LigneCommande::class, mappedBy: 'commande')]
+    #[ORM\OneToMany(targetEntity: LigneCommande::class, mappedBy: 'commande', cascade: ['persist', 'remove'])]
     private Collection $lignesCommande;
 
     public function __construct()
@@ -113,5 +113,13 @@ class Commande
         }
 
         return $this;
+    }
+
+    public function getPrix(): float {
+        $prixTotal = 0.0;
+        foreach ($this->lignesCommande as $ligneCommande) {
+            $prixTotal += $ligneCommande->getPrix();
+        }
+        return $prixTotal;
     }
 }

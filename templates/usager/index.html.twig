@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Usager index{% endblock %}
+{% block title %}Votre compte{% endblock %}
 
 {% block body %}
-    <h1>Usager index</h1>
+    <h1>Votre compte</h1>
 
     <table class="table">
         <thead>
@@ -29,11 +29,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Vous n'êtes pas connecté.</td>
             </tr>
         {% endif %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_usager_new') }}">Create new</a>
+    <a href="{{ path('app_usager_new') }}">S'inscrire</a>
 {% endblock %}

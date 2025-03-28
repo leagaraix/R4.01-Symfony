@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Usager;
 use App\Form\UsagerType;
-use App\Repository\UsagerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(path : '/usager', requirements: ['_locale' => '%app.supported_locales%'])]
+#[Route(path : '{_locale}/usager', requirements: ['_locale' => '%app.supported_locales%'])]
 final class UsagerController extends AbstractController
 {
     #[Route(name: 'app_usager_index', methods: ['GET'])]
@@ -34,7 +33,6 @@ final class UsagerController extends AbstractController
 
             // Encoder le mot de passe
             $hashedPassword = $passwordHasher->hashPassword($usager, $usager->getPassword());
-
             $usager->setPassword($hashedPassword);
 
             // Définir le rôle de l'usager qui va être créé
@@ -49,6 +47,26 @@ final class UsagerController extends AbstractController
         return $this->render('usager/new.html.twig', [
             'usager' => $usager,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/commandes', name: 'app_usager_commandes')]
+    public function commandes(): Response
+    {
+        //$commandes = $commandeRepository->findBy(['usager', $usager]);
+        $commandes = $this->getUser()->getCommandes();
+
+        return $this->render('usager/commandes.html.twig', [
+            'commandes' => $commandes
+        ]);
+    }
+
+    #[Route('/commande/{idCommande}', name: 'app_usager_commande', requirements: ['idCommande' => '\d+'])]
+    public function commande(int $idCommande): Response
+    {
+        $commandes = $this->getUser()->getCommandes();
+        return $this->render('usager/commande.html.twig', [
+            'commande' => $commandes[$idCommande - 1]
         ]);
     }
 }

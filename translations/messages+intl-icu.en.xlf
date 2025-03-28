@@ -57,6 +57,30 @@
         <source>panier.index.title</source>
         <target>My basket</target>
       </trans-unit>
+      <trans-unit id="b9bBwvB" resname="navbar.usager">
+        <source>navbar.usager</source>
+        <target>User</target>
+      </trans-unit>
+      <trans-unit id="Q1S50Z8" resname="navbar.connexion">
+        <source>navbar.connexion</source>
+        <target>Sign In</target>
+      </trans-unit>
+      <trans-unit id="OLhrHV1" resname="navbar.inscription">
+        <source>navbar.inscription</source>
+        <target>Register</target>
+      </trans-unit>
+      <trans-unit id="3uiNtmZ" resname="navbar.compte">
+        <source>navbar.compte</source>
+        <target>My Account</target>
+      </trans-unit>
+      <trans-unit id="CVzF7.t" resname="navbar.commandes">
+        <source>navbar.commandes</source>
+        <target>My Orders</target>
+      </trans-unit>
+      <trans-unit id="kdcZRhy" resname="navbar.deconnexion">
+        <source>navbar.deconnexion</source>
+        <target>Sign Out</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

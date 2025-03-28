@@ -6,6 +6,7 @@ use App\Entity\Commande;
 use App\Entity\LigneCommande;
 use App\Entity\Produit;
 use App\Entity\Usager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -114,7 +115,7 @@ class PanierService
     }
 
     // Créer une commande à partir du contenu du panier (s'il n'est pas vide)
-    public function panierToCommande(Usager $usager) : ?Commande {
+    public function panierToCommande(Usager $usager, EntityManagerInterface $entityManager) : ?Commande {
 
         // Vérifier que le panier n'est pas vide
         if ($this->getNombreProduits() == 0) {
@@ -124,7 +125,6 @@ class PanierService
         // Création de la commande
         $commande = new Commande();
         $commande->setUsager($usager);
-        $commande->setId(3); // !!!!!!!!!!!!
         $commande->setDateCreation(new \DateTime());
 
         // Parcourir le panier, ajouter une ligne de commande à la commande à chaque nouveau produit
@@ -138,17 +138,15 @@ class PanierService
             $ligneCommande->setProduit($produit);
             $ligneCommande->setCommande($commande);
             $ligneCommande->setQuantite($quantite);
-            $ligneCommande->setPrix($produit->getPrix());
+            $ligneCommande->setPrix($produit->getPrix() * $quantite);
 
             // Ajouter la ligne à la commande
             $commande->addLignesCommande($ligneCommande);
+
         }
 
-        // TODO : voir cours 4 p.12, il manque sûrement persist() et flush()
-        // déjà fait usagerController, en bas, donc il doit y avoir des façons de faire
-
-
-
+        $entityManager->persist($commande);
+        $entityManager->flush();
 
         // Vider le panier
         $this->vider();
